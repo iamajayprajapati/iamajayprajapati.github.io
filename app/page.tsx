@@ -7,6 +7,7 @@ import ExperienceSection from "@/components/sections/ExperienceSection";
 import TeachingSection from "@/components/sections/TeachingSection";
 import SkillsSection from "@/components/sections/SkillsSection";
 import AwardsSection from "@/components/sections/AwardsSection";
+import WorkshopsSection from "@/components/sections/WorkshopsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import StatsSection from "@/components/sections/StatsSection";
 
@@ -40,6 +41,9 @@ export default function Home() {
 
       {/* Teaching & Mentoring */}
       <TeachingSection />
+
+      {/* Workshops & Training */}
+      <WorkshopsSection />
 
       {/* Skills & Expertise */}
       <SkillsSection />
