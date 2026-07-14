@@ -5,56 +5,94 @@ import { BookOpen, GraduationCap, Users, Star } from "lucide-react";
 
 const courses = [
   {
-    code: "CS101",
-    title: "Introduction to Computer Science",
+    code: "AICTE QIP",
+    title: "PG Certificate Program on Artificial Intelligence",
     role: "Teaching Assistant",
-    institution: "IIIT Vadodara",
-    semester: "Monsoon 2024",
-    students: 60,
-    description:
-      "Assisted the professor in conducting lab sessions, grading assignments, and conducting doubt-clearing sessions for first-year BTech students.",
-    topics: ["Programming Basics", "Data Types", "Control Flow", "Functions"],
-    rating: 4.8,
+    institution: "IIIT Vadodara (Sponsored by AICTE)",
+    semester: "March 2026 – July 2026",
+    description: "Assisted in the AICTE QIP PG Certificate Program on Artificial Intelligence.",
     color: "#2563eb",
   },
   {
-    code: "CS303",
-    title: "Machine Learning",
+    code: "CS448",
+    title: "Operating System",
     role: "Teaching Assistant",
     institution: "IIIT Vadodara",
-    semester: "Winter 2024",
-    students: 45,
-    description:
-      "Led tutorial sessions on machine learning algorithms, helped design programming assignments, and provided one-on-one mentoring for students working on ML projects.",
-    topics: ["Supervised Learning", "Neural Networks", "SVM", "Evaluation Metrics"],
-    rating: 4.9,
+    semester: "January – May 2026",
+    description: "Teaching Assistant for Operating System (CS448).",
     color: "#7c3aed",
   },
   {
-    code: "CS401",
-    title: "Deep Learning & Computer Vision",
-    role: "Guest Lecturer",
+    code: "CS268",
+    title: "Computer Organization and Architecture",
+    role: "Teaching Assistant",
     institution: "IIIT Vadodara",
-    semester: "Monsoon 2025",
-    students: 38,
-    description:
-      "Delivered three guest lectures on Explainable AI, Handwriting Recognition, and Transfer Learning as part of the advanced DL course curriculum.",
-    topics: ["XAI / Grad-CAM", "Handwriting Recognition", "Transfer Learning", "Vision Transformers"],
-    rating: 4.7,
+    semester: "January – May 2026",
+    description: "Teaching Assistant for Computer Organization and Architecture.",
     color: "#06b6d4",
   },
   {
-    code: "WORKSHOP",
-    title: "Hands-on Deep Learning Workshop",
-    role: "Instructor",
-    institution: "IIIT Vadodara – Research Club",
-    semester: "2025",
-    students: 25,
-    description:
-      "Designed and delivered a 2-day intensive workshop for junior researchers and students on PyTorch, CNNs, and practical model training using Google Colab.",
-    topics: ["PyTorch Basics", "CNN Architecture", "Training Tips", "Deployment"],
-    rating: 5.0,
+    code: "CS/IT261",
+    title: "Object Oriented Programming",
+    role: "Teaching Assistant",
+    institution: "IIIT Vadodara",
+    semester: "August – December 2025",
+    description: "Teaching Assistant for Object Oriented Programming.",
     color: "#10b981",
+  },
+  {
+    code: "CS363",
+    title: "Operating System",
+    role: "Teaching Assistant",
+    institution: "IIIT Vadodara",
+    semester: "August – December 2025",
+    description: "Teaching Assistant for Operating System (CS363).",
+    color: "#f59e0b",
+  },
+  {
+    code: "AICTE QIP",
+    title: "PG Certificate Program on AI and Cyber Security",
+    role: "Teaching Assistant",
+    institution: "IIIT Vadodara (Sponsored by AICTE)",
+    semester: "23 June 2025 – 4 July 2025",
+    description: "Assisted in the AICTE QIP PG Certificate Program on AI and Cyber Security for Faculty in Core Engineering Disciplines.",
+    color: "#ef4444",
+  },
+  {
+    code: "CS/IT326",
+    title: "Topics in Security and Privacy",
+    role: "Teaching Assistant",
+    institution: "IIIT Vadodara",
+    semester: "January – May 2025",
+    description: "Teaching Assistant for Topics in Security and Privacy.",
+    color: "#3b82f6",
+  },
+  {
+    code: "MA102",
+    title: "Linear Algebra and Matrices",
+    role: "Teaching Assistant",
+    institution: "IIIT Vadodara",
+    semester: "January – May 2025",
+    description: "Teaching Assistant for Linear Algebra and Matrices.",
+    color: "#8b5cf6",
+  },
+  {
+    code: "CS361",
+    title: "Computer Network",
+    role: "Teaching Assistant",
+    institution: "IIIT Vadodara",
+    semester: "August – December 2024",
+    description: "Teaching Assistant for Computer Network.",
+    color: "#ec4899",
+  },
+  {
+    code: "CS363",
+    title: "Operating System",
+    role: "Teaching Assistant",
+    institution: "IIIT Vadodara",
+    semester: "August – December 2024",
+    description: "Teaching Assistant for Operating System (CS363).",
+    color: "#f97316",
   },
 ];
 
@@ -182,21 +220,6 @@ export default function TeachingSection() {
                     {course.title}
                   </h4>
                 </div>
-                {/* Star rating */}
-                <div
-                  style={{
-                    display: "flex", alignItems: "center", gap: 4,
-                    padding: "4px 10px", borderRadius: 50,
-                    background: "rgba(245,158,11,0.1)",
-                    border: "1px solid rgba(245,158,11,0.2)",
-                    flexShrink: 0,
-                  }}
-                >
-                  <Star size={12} style={{ color: "#f59e0b", fill: "#f59e0b" }} />
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#f59e0b" }}>
-                    {course.rating}
-                  </span>
-                </div>
               </div>
 
               {/* Meta */}
@@ -211,14 +234,6 @@ export default function TeachingSection() {
                 >
                   {course.role}
                 </span>
-                <span
-                  style={{
-                    display: "flex", alignItems: "center", gap: 5,
-                    fontSize: 12, color: "var(--text-muted)",
-                  }}
-                >
-                  <Users size={12} /> {course.students} students
-                </span>
               </div>
 
               <p
@@ -230,22 +245,6 @@ export default function TeachingSection() {
                 {course.description}
               </p>
 
-              {/* Topics */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {course.topics.map((topic) => (
-                  <span
-                    key={topic}
-                    style={{
-                      padding: "3px 10px",
-                      background: `${course.color}08`,
-                      border: `1px solid ${course.color}18`,
-                      borderRadius: 50, fontSize: 11, fontWeight: 600, color: course.color,
-                    }}
-                  >
-                    {topic}
-                  </span>
-                ))}
-              </div>
             </motion.div>
           ))}
         </div>
