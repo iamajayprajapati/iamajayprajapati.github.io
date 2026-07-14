@@ -252,7 +252,12 @@ export default function Footer() {
             <span style={{ color: "var(--purple)" }}>Framer Motion</span>.
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
+            <img 
+              src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fiamajayprajapati.github.io&countColor=%232563eb&label=Visitors" 
+              alt="Visitors Count" 
+              style={{ height: 20, opacity: 0.8 }}
+            />
+            <span style={{ fontSize: 12, color: "var(--text-muted)", display: "none" }}>
               PhD Scholar · IIIT Vadodara · CSE
             </span>
             {/* Back to top */}
