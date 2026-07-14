@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CursorGlow from "@/components/CursorGlow";
+import Chatbot from "@/components/Chatbot";
 
 export const metadata: Metadata = {
   title: "Ajay Prajapati | PhD Scholar – AI, Handwriting Analysis & Computer Vision",
@@ -78,6 +79,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <Chatbot />
         </ThemeProvider>
       </body>
     </html>
