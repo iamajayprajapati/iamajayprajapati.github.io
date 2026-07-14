@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Key, Loader2, Bot, User } from "lucide-react";
+import { MessageSquare, X, Send, Loader2, Bot, User } from "lucide-react";
 
 type Message = {
-  role: "user" | "model";
+  role: "user" | "model" | "system";
   text: string;
 };
 
@@ -20,22 +20,12 @@ If a user asks a question not related to Ajay or computer science research, poli
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [apiKey, setApiKey] = useState("");
-  const [isKeySaved, setIsKeySaved] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "model", text: "Hi! I am Ajay's AI assistant. How can I help you today?" },
+    { role: "model", text: "Hi! I am Ajay's free AI assistant. How can I help you today?" },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const savedKey = localStorage.getItem("gemini_api_key");
-    if (savedKey) {
-      setApiKey(savedKey);
-      setIsKeySaved(true);
-    }
-  }, []);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -43,22 +33,8 @@ export default function Chatbot() {
     }
   }, [messages, isOpen]);
 
-  const saveKey = () => {
-    if (apiKey.trim().length > 10) {
-      localStorage.setItem("gemini_api_key", apiKey.trim());
-      setIsKeySaved(true);
-    }
-  };
-
-  const removeKey = () => {
-    localStorage.removeItem("gemini_api_key");
-    setApiKey("");
-    setIsKeySaved(false);
-    setMessages([{ role: "model", text: "API Key removed. Please enter a new key to continue chatting." }]);
-  };
-
   const sendMessage = async () => {
-    if (!input.trim() || !isKeySaved) return;
+    if (!input.trim()) return;
 
     const newMessages = [...messages, { role: "user", text: input }];
     setMessages(newMessages as Message[]);
@@ -66,40 +42,32 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const history = newMessages.map((msg) => ({
-        role: msg.role === "user" ? "user" : "model",
-        parts: [{ text: msg.text }],
-      }));
+      // Format messages for standard OpenAI-like APIs
+      const apiMessages = [
+        { role: "system", content: SYSTEM_PROMPT },
+        ...newMessages.map((msg) => ({
+          role: msg.role === "model" ? "assistant" : "user",
+          content: msg.text,
+        })),
+      ];
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            systemInstruction: {
-              parts: [{ text: SYSTEM_PROMPT }],
-            },
-            contents: history,
-          }),
-        }
-      );
+      // Using the free, no-key Pollinations text API
+      const response = await fetch("https://text.pollinations.ai/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: apiMessages,
+        }),
+      });
 
-      const data = await response.json();
+      if (!response.ok) throw new Error("API response error");
 
-      if (data.error) {
-        setMessages((prev) => [
-          ...prev,
-          { role: "model", text: `Error: ${data.error.message}. Please check your API key.` },
-        ]);
-      } else {
-        const botReply = data.candidates[0].content.parts[0].text;
-        setMessages((prev) => [...prev, { role: "model", text: botReply }]);
-      }
+      const botReply = await response.text();
+      setMessages((prev) => [...prev, { role: "model", text: botReply }]);
     } catch (error) {
       setMessages((prev) => [
         ...prev,
-        { role: "model", text: "Sorry, there was a network error. Please try again." },
+        { role: "model", text: "Sorry, there was a network error with the free AI service. Please try again later." },
       ]);
     } finally {
       setIsLoading(false);
@@ -210,166 +178,125 @@ export default function Chatbot() {
                 gap: 16,
               }}
             >
-              {!isKeySaved ? (
-                <div style={{ textAlign: "center", padding: "20px 0" }}>
-                  <Key size={32} style={{ color: "var(--royal-blue)", marginBottom: 12 }} />
-                  <h4 style={{ marginBottom: 8, color: "var(--text-primary)" }}>API Key Required</h4>
-                  <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 16 }}>
-                    Please enter your free Google Gemini API key to chat with the AI. Your key is only stored locally in your browser.
-                  </p>
-                  <input
-                    type="password"
-                    placeholder="AIzaSy..."
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
-                    style={{
-                      width: "100%",
-                      padding: "10px 12px",
-                      borderRadius: 8,
-                      border: "1px solid var(--border)",
-                      background: "var(--bg-secondary)",
-                      color: "var(--text-primary)",
-                      marginBottom: 12,
-                    }}
-                  />
-                  <button
-                    onClick={saveKey}
-                    className="btn-primary"
-                    style={{ width: "100%", padding: "10px" }}
-                  >
-                    Save Key & Start Chat
-                  </button>
-                </div>
-              ) : (
-                <>
-                  {messages.map((msg, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: "flex",
-                        gap: 10,
-                        alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-                        flexDirection: msg.role === "user" ? "row-reverse" : "row",
-                        maxWidth: "85%",
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: 28,
-                          height: 28,
-                          borderRadius: "50%",
-                          background: msg.role === "user" ? "var(--bg-secondary)" : "var(--royal-blue)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: msg.role === "user" ? "var(--text-primary)" : "white",
-                          flexShrink: 0,
-                        }}
-                      >
-                        {msg.role === "user" ? <User size={14} /> : <Bot size={14} />}
-                      </div>
-                      <div
-                        style={{
-                          background: msg.role === "user" ? "var(--royal-blue)" : "var(--bg-secondary)",
-                          color: msg.role === "user" ? "white" : "var(--text-primary)",
-                          padding: "10px 14px",
-                          borderRadius: 12,
-                          fontSize: 13.5,
-                          lineHeight: 1.5,
-                          borderTopLeftRadius: msg.role === "model" ? 2 : 12,
-                          borderTopRightRadius: msg.role === "user" ? 2 : 12,
-                        }}
-                      >
-                        {msg.text}
-                      </div>
-                    </div>
-                  ))}
-                  {isLoading && (
-                    <div style={{ display: "flex", gap: 10, alignSelf: "flex-start" }}>
-                      <div
-                        style={{
-                          width: 28, height: 28, borderRadius: "50%",
-                          background: "var(--royal-blue)", display: "flex",
-                          alignItems: "center", justifyContent: "center", color: "white",
-                        }}
-                      >
-                        <Bot size={14} />
-                      </div>
-                      <div style={{ padding: "10px 14px", background: "var(--bg-secondary)", borderRadius: 12 }}>
-                        <Loader2 size={16} className="animate-spin" style={{ color: "var(--text-secondary)" }} />
-                      </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
-                </>
-              )}
-            </div>
-
-            {/* Input Area */}
-            {isKeySaved && (
-              <div
-                style={{
-                  padding: "16px",
-                  borderTop: "1px solid var(--border)",
-                  background: "var(--bg-secondary)",
-                }}
-              >
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    sendMessage();
+              <div style={{ textAlign: "center", marginBottom: 12 }}>
+                <span style={{ fontSize: 11, color: "var(--text-muted)", padding: "4px 10px", background: "var(--bg-secondary)", borderRadius: 50 }}>
+                  Free LLM Mode
+                </span>
+              </div>
+              
+              {messages.map((msg, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
+                    flexDirection: msg.role === "user" ? "row-reverse" : "row",
+                    maxWidth: "85%",
                   }}
-                  style={{ display: "flex", gap: 8 }}
                 >
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask about Ajay..."
+                  <div
                     style={{
-                      flex: 1,
-                      padding: "10px 14px",
-                      borderRadius: 20,
-                      border: "1px solid var(--border)",
-                      background: "var(--bg-primary)",
-                      color: "var(--text-primary)",
-                      outline: "none",
-                    }}
-                  />
-                  <button
-                    type="submit"
-                    disabled={isLoading || !input.trim()}
-                    style={{
-                      width: 40,
-                      height: 40,
+                      width: 28,
+                      height: 28,
                       borderRadius: "50%",
-                      background: input.trim() ? "var(--royal-blue)" : "var(--bg-primary)",
-                      color: input.trim() ? "white" : "var(--text-muted)",
-                      border: input.trim() ? "none" : "1px solid var(--border)",
+                      background: msg.role === "user" ? "var(--bg-secondary)" : "var(--royal-blue)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      cursor: input.trim() ? "pointer" : "default",
-                      transition: "all 0.2s",
+                      color: msg.role === "user" ? "var(--text-primary)" : "white",
+                      flexShrink: 0,
                     }}
                   >
-                    <Send size={16} />
-                  </button>
-                </form>
-                <div style={{ textAlign: "center", marginTop: 8 }}>
-                  <button
-                    onClick={removeKey}
+                    {msg.role === "user" ? <User size={14} /> : <Bot size={14} />}
+                  </div>
+                  <div
                     style={{
-                      background: "none", border: "none", fontSize: 11,
-                      color: "var(--text-muted)", cursor: "pointer",
-                      textDecoration: "underline",
+                      background: msg.role === "user" ? "var(--royal-blue)" : "var(--bg-secondary)",
+                      color: msg.role === "user" ? "white" : "var(--text-primary)",
+                      padding: "10px 14px",
+                      borderRadius: 12,
+                      fontSize: 13.5,
+                      lineHeight: 1.5,
+                      borderTopLeftRadius: msg.role === "model" ? 2 : 12,
+                      borderTopRightRadius: msg.role === "user" ? 2 : 12,
                     }}
                   >
-                    Remove API Key
-                  </button>
+                    {msg.text}
+                  </div>
                 </div>
-              </div>
-            )}
+              ))}
+              
+              {isLoading && (
+                <div style={{ display: "flex", gap: 10, alignSelf: "flex-start" }}>
+                  <div
+                    style={{
+                      width: 28, height: 28, borderRadius: "50%",
+                      background: "var(--royal-blue)", display: "flex",
+                      alignItems: "center", justifyContent: "center", color: "white",
+                    }}
+                  >
+                    <Bot size={14} />
+                  </div>
+                  <div style={{ padding: "10px 14px", background: "var(--bg-secondary)", borderRadius: 12 }}>
+                    <Loader2 size={16} className="animate-spin" style={{ color: "var(--text-secondary)" }} />
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <div
+              style={{
+                padding: "16px",
+                borderTop: "1px solid var(--border)",
+                background: "var(--bg-secondary)",
+              }}
+            >
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  sendMessage();
+                }}
+                style={{ display: "flex", gap: 8 }}
+              >
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Ask about Ajay..."
+                  style={{
+                    flex: 1,
+                    padding: "10px 14px",
+                    borderRadius: 20,
+                    border: "1px solid var(--border)",
+                    background: "var(--bg-primary)",
+                    color: "var(--text-primary)",
+                    outline: "none",
+                  }}
+                />
+                <button
+                  type="submit"
+                  disabled={isLoading || !input.trim()}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    background: input.trim() ? "var(--royal-blue)" : "var(--bg-primary)",
+                    color: input.trim() ? "white" : "var(--text-muted)",
+                    border: input.trim() ? "none" : "1px solid var(--border)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: input.trim() ? "pointer" : "default",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  <Send size={16} />
+                </button>
+              </form>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
