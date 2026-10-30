@@ -1,98 +1,58 @@
 "use client";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Trophy, Star, Award } from "lucide-react";
+import { Trophy, Award } from "lucide-react";
+
+const sourceBase = "https://sites.google.com/view/ajayprajapati";
 
 const awards = [
   {
-    title: "Institute Research Fellowship",
-    org: "IIIT Vadodara",
-    year: "2024 – Present",
-    description:
-      "Awarded full PhD fellowship including monthly stipend, research grant, and travel support for attending international conferences.",
-    type: "fellowship",
-    icon: "🏆",
-    color: "#f59e0b",
+    title: "Program & Website Committee Member",
+    org: "IIIT Allahabad academic events",
+    year: "2024–2025",
+    description: "Committee service for MADP 2024, CGAC 2024, FGRF 2024, and GAANA 2025.",
+    type: "service", icon: "🤝", color: "#2563eb",
+    source: `${sourceBase}/academic-activities`,
   },
   {
-    title: "Best Paper Award",
-    org: "National Conference on AI & Computer Vision",
-    year: "2025",
-    description:
-      "Received Best Paper Award for the work on 'Explainable AI for Handwriting-Based Biometric Authentication' at the national conference.",
-    type: "award",
-    icon: "🥇",
-    color: "#2563eb",
-  },
-  {
-    title: "Best Research Project",
-    org: "Previous Institution – Department of CSE",
-    year: "2022",
-    description:
-      "Awarded Best Final Year Project for undergraduate research on handwriting pattern recognition using machine learning.",
-    type: "award",
-    icon: "🎖️",
-    color: "#7c3aed",
-  },
-  {
-    title: "Qualified GATE CS",
-    org: "IIT & NIT Joint Entrance Exam",
-    year: "2022",
-    description:
-      "Qualified Graduate Aptitude Test in Engineering (GATE) in Computer Science, securing admission to postgraduate studies.",
-    type: "exam",
-    icon: "📜",
-    color: "#06b6d4",
-  },
-  {
-    title: "Research Travel Grant",
-    org: "Conference Travel Support Program",
-    year: "2025",
-    description:
-      "Received travel grant to present research at ICDAR 2025 international conference, covering registration, travel, and accommodation.",
-    type: "grant",
-    icon: "✈️",
-    color: "#10b981",
-  },
-  {
-    title: "Academic Excellence Award",
-    org: "IIIT Vadodara",
+    title: "Research Presentation at CFAF 2024",
+    org: "IIIT Allahabad",
     year: "2024",
-    description:
-      "Recognized for outstanding academic performance and research contributions in the first year of PhD studies.",
-    type: "award",
-    icon: "⭐",
-    color: "#e11d48",
+    description: "Presented research on fractal antennas and fractal interpolation at CFAF 2024.",
+    type: "presentation", icon: "🎤", color: "#7c3aed",
+    source: `${sourceBase}/conference`,
   },
   {
-    title: "Open Source Contributor",
-    org: "GitHub & Research Community",
-    year: "2023 – Present",
-    description:
-      "Active contributor to open-source ML projects; GujaratiHW dataset has been downloaded 200+ times by researchers worldwide.",
-    type: "community",
-    icon: "🌐",
-    color: "#7c3aed",
+    title: "Mendeley Training Certification",
+    org: "IQAC, NSB Bangalore & Mendeley",
+    year: "28 March 2024",
+    description: "Received a training certificate of achievement in research reference management.",
+    type: "certification", icon: "📜", color: "#06b6d4",
+    source: `${sourceBase}/workshops`,
   },
   {
-    title: "Hackathon Winner – AI Track",
-    org: "National AI Hackathon (Placeholder)",
-    year: "2023",
-    description:
-      "First place in AI track for building a real-time handwriting recognition system using edge AI and IoT devices.",
-    type: "competition",
-    icon: "⚡",
-    color: "#f59e0b",
+    title: "ADASIVA 2025 Summer School",
+    org: "IIIT Allahabad",
+    year: "7–12 July 2025",
+    description: "Participated in advanced study of deep architectures for signal, image, and vision applications.",
+    type: "training", icon: "🧠", color: "#10b981",
+    source: `${sourceBase}/workshops`,
+  },
+  {
+    title: "Emerging Technologies Short Course",
+    org: "NIT Jalandhar",
+    year: "21–25 July 2025",
+    description: "Participated in a week-long online course covering computing and communication technologies.",
+    type: "training", icon: "💻", color: "#f59e0b",
+    source: `${sourceBase}/workshops`,
   },
 ];
 
 const typeConfig: Record<string, { label: string; color: string }> = {
-  fellowship: { label: "Fellowship", color: "#f59e0b" },
-  award: { label: "Award", color: "#2563eb" },
-  exam: { label: "Exam", color: "#06b6d4" },
-  grant: { label: "Grant", color: "#10b981" },
-  community: { label: "Community", color: "#7c3aed" },
-  competition: { label: "Competition", color: "#e11d48" },
+  service: { label: "Academic Service", color: "#2563eb" },
+  presentation: { label: "Presentation", color: "#7c3aed" },
+  certification: { label: "Certification", color: "#06b6d4" },
+  training: { label: "Training", color: "#10b981" },
 };
 
 export default function AwardsSection() {
@@ -131,12 +91,12 @@ export default function AwardsSection() {
             <Trophy size={14} /> Recognition
           </span>
           <h2 className="section-title">
-            Awards &{" "}
+            Academic &{" "}
             <span className="gradient-text">Achievements</span>
           </h2>
           <p className="section-subtitle">
-            Recognitions, fellowships, and achievements earned throughout
-            the academic and research journey.
+            Selected academic milestones, committee service, and professional
+            development documented on my Google Sites profile.
           </p>
         </motion.div>
 
@@ -144,7 +104,7 @@ export default function AwardsSection() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))",
             gap: 22,
           }}
         >
@@ -238,6 +198,15 @@ export default function AwardsSection() {
                 >
                   {award.description}
                 </p>
+                <a
+                  href={award.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View source for ${award.title}`}
+                  style={{ display: "inline-block", marginTop: 16, color: "var(--royal-blue)", fontSize: 13, fontWeight: 600 }}
+                >
+                  View source ↗
+                </a>
               </motion.div>
             );
           })}
@@ -262,14 +231,14 @@ export default function AwardsSection() {
           >
             <Award size={18} style={{ color: "var(--royal-blue)" }} />
             <span style={{ fontSize: 14, color: "var(--text-secondary)", fontWeight: 500 }}>
-              Additional certifications and course completions available on{" "}
+              Explore my academic profile on{" "}
               <a
-                href="https://www.linkedin.com/in/iamajayprajapati/"
+                href="https://sites.google.com/view/ajayprajapati/home"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "var(--royal-blue)", fontWeight: 600 }}
               >
-                LinkedIn Profile
+                Google Sites
               </a>
             </span>
           </div>

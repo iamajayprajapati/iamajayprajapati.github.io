@@ -265,8 +265,8 @@ export default function AboutSection() {
                 {[
                   {
                     icon: <Mail size={15} />,
-                    label: "202491001@iiitvadodara.ac.in",
-                    href: "mailto:202491001@iiitvadodara.ac.in",
+                    label: "202491001@diu.iiitvadodara.ac.in",
+                    href: "mailto:202491001@diu.iiitvadodara.ac.in",
                   },
                   {
                     icon: <MapPin size={15} />,

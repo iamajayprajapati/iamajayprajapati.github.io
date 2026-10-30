@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Experience", href: "#experience" },
   { label: "Teaching", href: "#teaching" },
   { label: "Skills", href: "#skills" },
-  { label: "Awards", href: "#awards" },
+  { label: "Achievements", href: "#awards" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -130,7 +130,7 @@ export default function Footer() {
             {/* Contact info */}
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
               <a
-                href="mailto:202491001@iiitvadodara.ac.in"
+                href="mailto:202491001@diu.iiitvadodara.ac.in"
                 style={{
                   display: "flex", alignItems: "center", gap: 8,
                   fontSize: 13, color: "var(--text-secondary)", textDecoration: "none",
@@ -140,7 +140,7 @@ export default function Footer() {
                 onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
               >
                 <Mail size={14} style={{ color: "var(--royal-blue)" }} />
-                202491001@iiitvadodara.ac.in
+                202491001@diu.iiitvadodara.ac.in
               </a>
               <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "var(--text-secondary)" }}>
                 <MapPin size={14} style={{ color: "var(--royal-blue)" }} />

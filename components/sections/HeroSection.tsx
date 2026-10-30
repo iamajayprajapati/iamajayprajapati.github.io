@@ -325,7 +325,7 @@ export default function HeroSection() {
             {[
               { icon: "🏛️", label: "IIIT Vadodara" },
               { icon: <MapPin size={13} />, label: "Diu, India" },
-              { icon: "✉️", label: "202491001@iiitvadodara.ac.in" },
+              { icon: "✉️", label: "202491001@diu.iiitvadodara.ac.in" },
               { icon: <Sparkles size={13} />, label: "2024 – Present" },
             ].map((c, i) => (
               <span

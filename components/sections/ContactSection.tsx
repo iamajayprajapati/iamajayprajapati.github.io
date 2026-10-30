@@ -7,8 +7,8 @@ import { GithubIcon, LinkedinIcon } from "@/components/icons";
 const contactLinks = [
   {
     label: "Email",
-    value: "202491001@iiitvadodara.ac.in",
-    href: "mailto:202491001@iiitvadodara.ac.in",
+    value: "202491001@diu.iiitvadodara.ac.in",
+    href: "mailto:202491001@diu.iiitvadodara.ac.in",
     icon: <Mail size={20} />,
     description: "Fastest response – usually within 24 hours",
     color: "#2563eb",
