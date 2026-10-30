@@ -1,4 +1,5 @@
 "use client";
+import ExpandableList from "@/components/ExpandableList";
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
@@ -35,7 +36,6 @@ const publications: Pub[] = [
     venue: "Chaos, Solitons & Fractals",
     year: 2024,
     type: "journal",
-    quartile: "Q1",
     tags: ["Fractal Surfaces", "Lebesgue Spaces", "Fractal Operators"],
     abstract: "Fractal surfaces in Lebesgue spaces with respect to fractal measures and associated fractal operators. Chaos, Solitons & Fractals 181 (2024): 114684",
   },
@@ -54,7 +54,7 @@ const publications: Pub[] = [
     venue: "arXiv Preprint",
     year: 2023,
     type: "preprint",
-    doi: "arXiv:2304.11866",
+    doi: "10.48550/arXiv.2304.11866",
     tags: ["Fractal Functions", "Sierpiński gasket"],
     abstract: "Some results on Continuous dependence of fractal functions on the Sierpiński gasket. arXiv preprint arXiv:2304.11866 (2023).",
   },
@@ -88,20 +88,11 @@ const publications: Pub[] = [
 ];
 
 function BibtexModal({ pub, onClose }: { pub: Pub; onClose: () => void }) {
-  const bibtex =
-    pub.type === "conference"
-      ? `@inproceedings{prajapati${pub.year},
+  const bibtex = `@${pub.type === "journal" ? "article" : "misc"}{prajapati${pub.year},
   title={${pub.title}},
   author={${pub.authors}},
-  booktitle={${pub.venue}},
-  year={${pub.year}}
-}`
-      : `@article{prajapati${pub.year},
-  title={${pub.title}},
-  author={${pub.authors}},
-  journal={${pub.venue}},
-  year={${pub.year}},
-  doi={${pub.doi || "TBD"}}
+  ${pub.type === "journal" ? "journal" : "howpublished"}={${pub.venue}},
+  year={${pub.year}}${pub.doi ? `,\n  doi={${pub.doi}}` : ""}
 }`;
 
   const [copied, setCopied] = useState(false);
@@ -140,7 +131,7 @@ function BibtexModal({ pub, onClose }: { pub: Pub; onClose: () => void }) {
         >
           <h3
             style={{
-              fontFamily: "'Space Grotesk', sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 700, fontSize: 18,
               marginBottom: 8, color: "var(--text-primary)",
             }}
@@ -158,7 +149,7 @@ function BibtexModal({ pub, onClose }: { pub: Pub; onClose: () => void }) {
           <pre
             style={{
               background: "var(--bg-primary)", borderRadius: 12,
-              padding: 22, fontSize: 12.5, color: "var(--text-secondary)",
+              padding: 22, fontSize: 15, color: "var(--text-secondary)",
               overflow: "auto", border: "1px solid var(--border)",
               lineHeight: 1.75, fontFamily: "'Fira Code', monospace",
             }}
@@ -188,9 +179,9 @@ function PubCard({
 }) {
   const [expanded, setExpanded] = useState(false);
   const typeColors: Record<string, string> = {
-    journal: "#2563eb",
-    conference: "#7c3aed",
-    preprint: "#d97706",
+    journal: "#29485f",
+    conference: "#29485f",
+    preprint: "#29485f",
   };
   const typeLabels: Record<string, string> = {
     journal: "Journal",
@@ -201,7 +192,7 @@ function PubCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={false}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
       className="glass-card"
@@ -228,7 +219,7 @@ function PubCard({
               padding: "3px 10px", borderRadius: 50,
               background: "linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.1))",
               border: "1px solid rgba(245,158,11,0.4)",
-              fontSize: 10, fontWeight: 800, color: "#d97706",
+              fontSize: 10, fontWeight: 800, color: "#29485f",
               letterSpacing: "0.08em", display: "flex", alignItems: "center", gap: 3,
             }}
           >
@@ -259,7 +250,7 @@ function PubCard({
       {/* Title */}
       <h3
         style={{
-          fontFamily: "'Space Grotesk', sans-serif",
+          fontFamily: "var(--font-body)",
           fontSize: 15.5, fontWeight: 700,
           color: "var(--text-primary)",
           marginBottom: 9, lineHeight: 1.45,
@@ -270,14 +261,14 @@ function PubCard({
       </h3>
 
       {/* Authors */}
-      <p style={{ fontSize: 12.5, color: "var(--text-secondary)", marginBottom: 5, fontWeight: 500 }}>
+      <p style={{ fontSize: 15, color: "var(--text-secondary)", marginBottom: 5, fontWeight: 500 }}>
         {pub.authors}
       </p>
 
       {/* Venue */}
       <p
         style={{
-          fontSize: 12.5, fontWeight: 600,
+          fontSize: 15, fontWeight: 600,
           color, marginBottom: 6, fontStyle: "italic",
           display: "flex", alignItems: "center", gap: 5,
         }}
@@ -288,12 +279,12 @@ function PubCard({
 
       {/* Impact factor */}
       {pub.impact && (
-        <p style={{ fontSize: 11.5, color: "var(--text-muted)", marginBottom: 14, fontWeight: 500 }}>
+        <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 14, fontWeight: 500 }}>
           {pub.impact}
         </p>
       )}
 
-      {/* Abstract */}
+      {/* Details */}
       <AnimatePresence>
         {expanded && (
           <motion.p
@@ -355,7 +346,7 @@ function PubCard({
           style={{ fontSize: 12, marginLeft: "auto" }}
         >
           {expanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
-          {expanded ? "Hide" : "Abstract"}
+          {expanded ? "Hide" : "Details"}
         </button>
       </div>
     </motion.div>
@@ -393,7 +384,7 @@ export default function PublicationsSection() {
         style={{ maxWidth: 1200, margin: "0 auto", padding: "0 28px" }}
       >
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={false}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           style={{ textAlign: "center", marginBottom: 56 }}
         >
@@ -404,14 +395,13 @@ export default function PublicationsSection() {
             <span className="gradient-text">Publications</span>
           </h2>
           <p className="section-subtitle">
-            Peer-reviewed research contributions in top-tier journals and
-            internationally recognized conferences.
+            Journal articles, a preprint, and conference contributions and presentations listed on my academic profile.
           </p>
         </motion.div>
 
         {/* Search & Filter */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2 }}
           style={{
@@ -446,8 +436,8 @@ export default function PublicationsSection() {
                   borderColor: filter === f ? "var(--royal-blue)" : "var(--border)",
                   background: filter === f ? "rgba(37,99,235,0.1)" : "transparent",
                   color: filter === f ? "var(--royal-blue)" : "var(--text-secondary)",
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 600, fontSize: 12.5, cursor: "pointer",
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 600, fontSize: 15, cursor: "pointer",
                   transition: "all 0.2s ease", textTransform: "capitalize",
                   display: "flex", alignItems: "center", gap: 6,
                 }}
@@ -470,7 +460,7 @@ export default function PublicationsSection() {
         </motion.div>
 
         {/* Publications list */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <ExpandableList key={search + filter} limit={search || filter !== "all" ? filtered.length : 3} label="publications" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           {filtered.map((pub, i) => (
             <PubCard
               key={pub.title}
@@ -480,7 +470,7 @@ export default function PublicationsSection() {
               onBibtex={setBibtexPub}
             />
           ))}
-        </div>
+        </ExpandableList>
 
         {filtered.length === 0 && (
           <div
@@ -490,7 +480,7 @@ export default function PublicationsSection() {
             }}
           >
             <div style={{ fontSize: 40, marginBottom: 16 }}>🔍</div>
-            <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 16 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: 16 }}>
               No publications match your search.
             </p>
             <p style={{ fontSize: 13, marginTop: 8 }}>
@@ -501,7 +491,7 @@ export default function PublicationsSection() {
 
         {/* Google Scholar link */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.6 }}
           style={{ textAlign: "center", marginTop: 48 }}

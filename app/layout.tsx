@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./academic.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CursorGlow from "@/components/CursorGlow";
-import Chatbot from "@/components/Chatbot";
+import Navbar from "@/components/AcademicNav";
+import Footer from "@/components/AcademicFooter";
 
 export const metadata: Metadata = {
-  title: "Ajay Prajapati | PhD Scholar – AI, Handwriting Analysis & Computer Vision",
+  metadataBase: new URL("https://iamajayprajapati.github.io"),
+  title: "Ajay Prajapati | PhD Scholar - Machine Learning & Fractals",
   description:
-    "Personal academic website of Ajay Prajapati, PhD Research Scholar at IIIT Vadodara, specializing in Handwriting Analysis, Deep Learning, Computer Vision, Explainable AI, OCR, and Machine Learning.",
+    "Personal academic website of Ajay Prajapati, PhD Research Scholar at IIIT Vadodara, with research interests in Machine Learning, Deep Learning, Handwriting Analysis, and Fractals.",
   keywords: [
     "Ajay Prajapati",
     "PhD Scholar",
@@ -17,25 +17,23 @@ export const metadata: Metadata = {
     "Handwriting Analysis",
     "Machine Learning",
     "Deep Learning",
-    "Computer Vision",
-    "Explainable AI",
-    "OCR",
+    "Fractals",
     "Research Scholar",
   ],
   authors: [{ name: "Ajay Prajapati" }],
   creator: "Ajay Prajapati",
   openGraph: {
     type: "website",
-    url: "https://ajayprajapati.dev",
-    title: "Ajay Prajapati | PhD Scholar – AI & Computer Vision",
+    url: "https://iamajayprajapati.github.io",
+    title: "Ajay Prajapati | PhD Scholar - Machine Learning & Fractals",
     description:
-      "Research Scholar at IIIT Vadodara specializing in Handwriting Analysis, Computer Vision, and Explainable AI.",
+      "Research Scholar at IIIT Vadodara with interests in Machine Learning, Deep Learning, Handwriting Analysis, and Fractals.",
     images: [{ url: "/ajay-profile.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Ajay Prajapati | PhD Scholar",
-    description: "Research Scholar specializing in AI, Handwriting Analysis, and Computer Vision.",
+    description: "Research Scholar with interests in Machine Learning, Deep Learning, Handwriting Analysis, and Fractals.",
     images: ["/ajay-profile.jpg"],
   },
   robots: {
@@ -52,12 +50,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -75,11 +67,9 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <CursorGlow />
           <Navbar />
           <main>{children}</main>
           <Footer />
-          <Chatbot />
         </ThemeProvider>
       </body>
     </html>

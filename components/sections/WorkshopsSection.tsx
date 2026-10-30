@@ -1,16 +1,17 @@
-"use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { BookOpen, Calendar, MapPin, Award } from "lucide-react";
-
+import ProfileSection from "@/components/ProfileSection";
+import ExpandableList from "@/components/ExpandableList";
 const workshops = [
+  { title: "Research Scholar Day 2026", org: "IIIT Vadodara", year: "15 September 2026", description: "Participated in Research Scholar Day.", icon: "R", color: "#29485f" },
+  { title: "Responsible Use of Artificial Intelligence in Life & Environment Research", org: "Taylor & Francis", year: "31 August 2026", description: "Participated in the training event.", icon: "AI", color: "#29485f" },
+  { title: "MPCI 2026", org: "IIIT Allahabad (Virtual)", year: "1-3 August 2026", description: "Workshop on Mathematics, Physics and Computing in Information Technology.", icon: "M", color: "#29485f" },
+  { title: "MANTRA 2026", org: "IIIT Allahabad (Hybrid)", year: "20-22 July 2026", description: "Workshop on Machine Learning, Linear Algebra and Natural Language Transformation.", icon: "ML", color: "#29485f" },
   {
     title: "Global Wales (UK)–India Workshop on Tackling Online Crimes Against Women and Children",
     org: "Cardiff University",
     year: "April 2026",
     description: "Gained interdisciplinary insights into cyber law, online safety, and policy responses for protecting women and children in digital spaces.",
     icon: "🌍",
-    color: "#2563eb",
+    color: "#29485f",
   },
   {
     title: "Medical Intervention Using Smart Technologies (MIST) - Online Short-Term Course",
@@ -18,7 +19,7 @@ const workshops = [
     year: "19-20 March, 2026",
     description: "Participated in the online short-term certificate course.",
     icon: "⚕️",
-    color: "#7c3aed",
+    color: "#29485f",
   },
   {
     title: "ANRF-PAIR Hands on workshop on generative AI and large language models",
@@ -26,7 +27,7 @@ const workshops = [
     year: "4-14 March, 2026",
     description: "Sponsored by ANRF-PAIR (Hub: IIT Bombay).",
     icon: "🤖",
-    color: "#10b981",
+    color: "#29485f",
   },
   {
     title: "FDP on Integrating Generative AI in Education: Impacts on TLE",
@@ -34,7 +35,7 @@ const workshops = [
     year: "Feb 23 - Mar 1, 2026",
     description: "Participated in the Faculty Development Programme.",
     icon: "🎓",
-    color: "#f59e0b",
+    color: "#29485f",
   },
   {
     title: "6th International Workshop on Generative AI and Human Robot Interactions",
@@ -42,7 +43,7 @@ const workshops = [
     year: "Jan 23-25, 2026",
     description: "Participated in the international workshop.",
     icon: "🤖",
-    color: "#ec4899",
+    color: "#29485f",
   },
   {
     title: "Advancement in Computational Drug Design (ACDD-2025)",
@@ -50,7 +51,7 @@ const workshops = [
     year: "Dec 2-4, 2025",
     description: "National Webinar and Schrödinger Life Science Hands-on Training Program.",
     icon: "🧬",
-    color: "#3b82f6",
+    color: "#29485f",
   },
   {
     title: "ATAL FDP on Exploratory Data Analytics (EDA) - Tools and Techniques",
@@ -58,7 +59,7 @@ const workshops = [
     year: "Nov 24-29, 2025",
     description: "Participated & completed AICTE Training And Learning Academy Faculty Development Program.",
     icon: "📊",
-    color: "#8b5cf6",
+    color: "#29485f",
   },
   {
     title: "Online Short Term Programme on Academic Writing for Research Scholars",
@@ -66,7 +67,7 @@ const workshops = [
     year: "Nov 10-15, 2025",
     description: "Under Malaviya Mission Teacher Training program (MM-TTP).",
     icon: "✍️",
-    color: "#06b6d4",
+    color: "#29485f",
   },
   {
     title: "Foundations of Data Science and Machine Learning for STEM Professionals",
@@ -74,7 +75,7 @@ const workshops = [
     year: "Nov 3-15, 2025",
     description: "Attended 12-Day Online Refresher Course.",
     icon: "💻",
-    color: "#f97316",
+    color: "#29485f",
   },
   {
     title: "Machine Learning Assisted IoT Networks Towards Performance Improvement",
@@ -82,7 +83,7 @@ const workshops = [
     year: "Oct 26, 2025",
     description: "Attended One-Day Workshop under ANRF sponsored project.",
     icon: "📡",
-    color: "#14b8a6",
+    color: "#29485f",
   },
   {
     title: "Applied Deep Learning using Python",
@@ -90,7 +91,7 @@ const workshops = [
     year: "Sep 1-6, 2025",
     description: "Participated in Short Term Course.",
     icon: "🧠",
-    color: "#6366f1",
+    color: "#29485f",
   },
   {
     title: "Emerging Technologies in Computing and Communication",
@@ -98,7 +99,7 @@ const workshops = [
     year: "Jul 21-25, 2025",
     description: "One Week Online Short Term Course.",
     icon: "🌐",
-    color: "#a855f7",
+    color: "#29485f",
   },
   {
     title: "7th Summer School on Advances in Deep Architectures for Signal, Image and Vision Applications (ADASIVA)",
@@ -106,7 +107,7 @@ const workshops = [
     year: "Jul 7-12, 2025",
     description: "Participated in the summer school.",
     icon: "👁️",
-    color: "#eab308",
+    color: "#29485f",
   },
   {
     title: "Emerging Research and Innovations in AI Applications in Mathematics, Bio-Sciences, and Management",
@@ -114,7 +115,7 @@ const workshops = [
     year: "Jun 26 - Jul 2, 2025",
     description: "Participated in the International Faculty Development Program (FDP).",
     icon: "📈",
-    color: "#ef4444",
+    color: "#29485f",
   },
   {
     title: "Advanced Optimization Techniques using MATLAB",
@@ -122,7 +123,7 @@ const workshops = [
     year: "Feb 17-28, 2025",
     description: "Participated in Online Training Programme.",
     icon: "⚙️",
-    color: "#0ea5e9",
+    color: "#29485f",
   },
   {
     title: "Mendeley Training Certification of Achievement",
@@ -130,7 +131,7 @@ const workshops = [
     year: "Mar 28, 2024",
     description: "Certification of Achievement.",
     icon: "📜",
-    color: "#84cc16",
+    color: "#29485f",
   },
   {
     title: "Citation & Reference Management for Scholarly Writing",
@@ -138,7 +139,7 @@ const workshops = [
     year: "Feb 26-28, 2024",
     description: "Three-Day Faculty Development Programme.",
     icon: "📚",
-    color: "#10b981",
+    color: "#29485f",
   },
   {
     title: "4th International Workshop on Generative AI and Human Robot Interactions",
@@ -146,7 +147,7 @@ const workshops = [
     year: "Feb 16-18, 2024",
     description: "Attended the international workshop.",
     icon: "🤖",
-    color: "#db2777",
+    color: "#29485f",
   },
   {
     title: "Advanced Entrepreneurship and Skill Development Program (E-SDP)",
@@ -154,7 +155,7 @@ const workshops = [
     year: "Feb 12-16, 2024",
     description: "Capacity Building Using Data Driven Technologies for Budding Entrepreneur of Future.",
     icon: "💡",
-    color: "#f59e0b",
+    color: "#29485f",
   },
   {
     title: "NEP 2020 Orientation & Sensitization Programme",
@@ -162,7 +163,7 @@ const workshops = [
     year: "Feb 1-28, 2024",
     description: "Participated under Malaviya Mission Teacher Training Programme.",
     icon: "🇮🇳",
-    color: "#2563eb",
+    color: "#29485f",
   },
   {
     title: "IIT DELHI - INRIA WORKSHOP",
@@ -170,7 +171,7 @@ const workshops = [
     year: "Oct 25-27, 2023",
     description: "Attended Indo-French Centre for the Promotion of Advanced Research workshop.",
     icon: "🤝",
-    color: "#8b5cf6",
+    color: "#29485f",
   },
   {
     title: "IoT, 5G Network Security, 5G PHY, and LiFi Training Workshops",
@@ -178,7 +179,7 @@ const workshops = [
     year: "October 2023",
     description: "Attended multiple workshops on IoT, 5G Network Security, 5G Physical Layer, and LiFi.",
     icon: "📡",
-    color: "#06b6d4",
+    color: "#29485f",
   },
   {
     title: "Machine Learning and its Application in IoT, Computer Vision and Cloud Computing (MICC-2023)",
@@ -186,7 +187,7 @@ const workshops = [
     year: "Jul 10-14, 2023",
     description: "One Week Online Short Term Course.",
     icon: "☁️",
-    color: "#6366f1",
+    color: "#29485f",
   },
   {
     title: "MS OFFICE SKILL ENRICHMENT PROGRAMME (MOSEP)",
@@ -194,7 +195,7 @@ const workshops = [
     year: "May 19-27, 2023",
     description: "Participated in the enrichment programme.",
     icon: "📊",
-    color: "#f97316",
+    color: "#29485f",
   },
   {
     title: "One Week Workshop on Communication Skills",
@@ -202,7 +203,7 @@ const workshops = [
     year: "Dec 7-14, 2022",
     description: "Participated in communication skills workshop.",
     icon: "🗣️",
-    color: "#14b8a6",
+    color: "#29485f",
   },
   {
     title: "Fractal Geometry And Related Fields (FGRF)",
@@ -210,7 +211,7 @@ const workshops = [
     year: "Sep 25 - Oct 1, 2022",
     description: "Participated in the workshop.",
     icon: "📐",
-    color: "#eab308",
+    color: "#29485f",
   },
   {
     title: "4th workshop on Machine Learning and Data Analytics (MLDA'21)",
@@ -218,7 +219,7 @@ const workshops = [
     year: "May 28 - Jun 11, 2021",
     description: "Participated in the machine learning workshop.",
     icon: "📈",
-    color: "#ef4444",
+    color: "#29485f",
   },
   {
     title: "Python for Data Science",
@@ -226,7 +227,7 @@ const workshops = [
     year: "Sep 26, 2020",
     description: "Attended powered by IBM.",
     icon: "🐍",
-    color: "#2563eb",
+    color: "#29485f",
   },
   {
     title: "Artificial Intelligence with Machine Learning Workshops",
@@ -234,7 +235,7 @@ const workshops = [
     year: "Aug 2020",
     description: "Participated in multiple online workshop series.",
     icon: "🧠",
-    color: "#8b5cf6",
+    color: "#29485f",
   },
   {
     title: "Workshop on Python during Robothlon-2019",
@@ -242,133 +243,26 @@ const workshops = [
     year: "Oct 3-5, 2019",
     description: "Participated during Robothlon-2019.",
     icon: "🐍",
-    color: "#10b981",
+    color: "#29485f",
   }
 ];
 
 export default function WorkshopsSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section id="workshops" className="section" ref={ref}>
-      {/* Background decoration */}
-      <div
-        style={{
-          position: "absolute", inset: 0,
-          background: "radial-gradient(circle at 10% 20%, rgba(139,92,246,0.03) 0%, transparent 60%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div
-        className="container"
-        style={{ maxWidth: 1200, margin: "0 auto", padding: "0 28px", position: "relative" }}
-      >
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: "center", marginBottom: 68 }}
-        >
-          <span className="section-label">
-            <BookOpen size={14} /> Workshops & Training
-          </span>
-          <h2 className="section-title">
-            Workshops &{" "}
-            <span className="gradient-text">Certifications</span>
-          </h2>
-          <p className="section-subtitle">
-            Continuous learning and skill development through national and international workshops, 
-            training programs, and faculty development courses.
-          </p>
-        </motion.div>
-
-        {/* Masonry Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            gap: 24,
-          }}
-        >
-          {workshops.map((ws, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.05 > 1 ? 0 : i * 0.05, duration: 0.55 }}
-              className="glass-card"
-              style={{
-                padding: "24px",
-                position: "relative",
-                overflow: "hidden",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {/* Colorful gradient border at top */}
-              <div
-                style={{
-                  position: "absolute", top: 0, left: 0, right: 0, height: 3,
-                  background: ws.color,
-                }}
-              />
-
-              <div style={{ display: "flex", gap: 16, alignItems: "flex-start", marginBottom: 16 }}>
-                <div
-                  style={{
-                    width: 42, height: 42, borderRadius: 12,
-                    background: `${ws.color}15`, display: "flex",
-                    alignItems: "center", justifyContent: "center",
-                    fontSize: 20, flexShrink: 0,
-                    border: `1px solid ${ws.color}30`,
-                  }}
-                >
-                  {ws.icon}
-                </div>
-                <div>
-                  <h4
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: 15, fontWeight: 700, color: "var(--text-primary)",
-                      lineHeight: 1.4, marginBottom: 8,
-                    }}
-                  >
-                    {ws.title}
-                  </h4>
-                  <p
-                    style={{
-                      fontSize: 12.5, fontWeight: 600, color: ws.color,
-                      display: "flex", alignItems: "center", gap: 6, marginBottom: 4,
-                    }}
-                  >
-                    <Award size={13} /> {ws.org}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: 11.5, color: "var(--text-muted)",
-                      display: "flex", alignItems: "center", gap: 5,
-                    }}
-                  >
-                    <Calendar size={11} /> {ws.year}
-                  </p>
-                </div>
-              </div>
-
-              <p
-                style={{
-                  fontSize: 13, lineHeight: 1.6, color: "var(--text-secondary)",
-                  flexGrow: 1,
-                }}
-              >
-                {ws.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <ProfileSection id="workshops" title="Workshops & Training" source="https://sites.google.com/view/ajayprajapati/workshops">
+      <ExpandableList limit={3} label="workshops & training" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: 28 }}>
+        {workshops.map((item, index) => (
+          <article className="glass-card academic-entry" key={index}>
+            <h3>{item.title}</h3>
+            <p className="entry-meta">{item.org + " / " + item.year}</p>
+            <details className="entry-detail">
+              <summary>Read details</summary>
+              <p>{item.description}</p>
+              <a href="https://sites.google.com/view/ajayprajapati/workshops" target="_blank" rel="noopener noreferrer">View source</a>
+            </details>
+          </article>
+        ))}
+      </ExpandableList>
+    </ProfileSection>
   );
 }
