@@ -266,6 +266,37 @@ details[open] > summary .disclosure-icon { transform: rotate(45deg); }
   }
   .more-content[open]::details-content { block-size: auto; }
 }
+.sliding-toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  width: 100%; text-align: left; background: transparent; cursor: pointer;
+  color: var(--royal-blue); font: inherit; font-size: 15px;
+}
+.more-content > .sliding-toggle {
+  padding: 18px 16px; border: 1px solid var(--border); border-radius: 5px;
+  font-weight: 600;
+  transition: background-color .25s, border-color .25s, box-shadow .25s;
+}
+.more-content[data-expanded="true"] > .sliding-toggle {
+  background: var(--bg-secondary); border-color: var(--border-strong);
+}
+.sliding-toggle .disclosure-icon {
+  display: inline-flex; flex: 0 0 28px; height: 28px; align-items: center;
+  justify-content: center; border-radius: 50%; background: var(--bg-secondary);
+  transition: transform .4s var(--ease-refined), background-color .25s;
+}
+[data-expanded="true"] > .sliding-toggle .disclosure-icon { transform: rotate(45deg); }
+.sliding-panel { overflow: hidden; }
+.sliding-panel > .expanded-items { margin: 0; padding: 30px 6px 14px; }
+.entry-detail > .sliding-toggle { padding: 8px 0; border: 0; }
+.entry-detail > .sliding-panel p { margin-block: 10px 14px; }
+.entry-detail > .sliding-panel a { display: inline-block; margin-bottom: 8px; font-size: 14px; }
+@media (hover: hover) and (pointer: fine) {
+  .more-content > .sliding-toggle:hover {
+    background: var(--bg-secondary); border-color: var(--accent-brass);
+    box-shadow: 0 5px 18px -10px rgb(40 75 99 / 25%);
+  }
+  .entry-detail > .sliding-toggle:hover { color: var(--accent-brass); }
+}
 @media(prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .glass-card:hover, .academic-portrait:hover img, .academic-portrait:hover::before,

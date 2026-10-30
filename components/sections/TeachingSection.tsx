@@ -1,3 +1,4 @@
+import SlidingDisclosure from "@/components/SlidingDisclosure";
 import ProfileSection from "@/components/ProfileSection";
 import ExpandableList from "@/components/ExpandableList";
 const courses = [
@@ -103,11 +104,10 @@ export default function TeachingSection() {
           <article className="glass-card academic-entry" key={index}>
             <h3>{item.title}</h3>
             <p className="entry-meta">{item.code + " / " + item.semester}</p>
-            <details className="entry-detail">
-              <summary>Read details</summary>
+            <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.role + " at " + item.institution + ". " + item.description}</p>
               <a href="https://sites.google.com/view/ajayprajapati/academic-activities" target="_blank" rel="noopener noreferrer">View source</a>
-            </details>
+            </SlidingDisclosure>
           </article>
         ))}
       </ExpandableList>

@@ -1,4 +1,5 @@
 import { Children, type CSSProperties, type ReactNode } from "react";
+import SlidingDisclosure from "@/components/SlidingDisclosure";
 
 export default function ExpandableList({ children, limit = 3, label = "items", style }: {
   children: ReactNode; limit?: number; label?: string; style?: CSSProperties;
@@ -8,14 +9,13 @@ export default function ExpandableList({ children, limit = 3, label = "items", s
     <div className="expandable-list">
       <div style={style}>{items.slice(0, limit)}</div>
       {items.length > limit && (
-        <details className="more-content">
-          <summary>
-            <span className="when-closed">See more {label} <span className="remaining-count">({items.length - limit})</span></span>
-            <span className="when-open">Show fewer {label}</span>
-            <span aria-hidden="true" className="disclosure-icon">+</span>
-          </summary>
+        <SlidingDisclosure
+          className="more-content"
+          label={<>See more {label} <span className="remaining-count">({items.length - limit})</span></>}
+          expandedLabel={<>Show fewer {label}</>}
+        >
           <div className="expanded-items" style={style}>{items.slice(limit)}</div>
-        </details>
+        </SlidingDisclosure>
       )}
     </div>
   );

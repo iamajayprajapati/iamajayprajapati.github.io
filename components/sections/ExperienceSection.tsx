@@ -1,3 +1,4 @@
+import SlidingDisclosure from "@/components/SlidingDisclosure";
 import ProfileSection from "@/components/ProfileSection";
 import ExpandableList from "@/components/ExpandableList";
 type ExpItem = {
@@ -100,12 +101,11 @@ export default function ExperienceSection() {
             <h3>{item.role}</h3>
             <p>{item.org}</p>
             <p className="entry-meta">{item.period} / {item.location}</p>
-            <details className="entry-detail">
-              <summary>Read details</summary>
+            <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.description}</p>
               {item.highlights.map((highlight) => <p key={highlight}>{highlight}</p>)}
               <a href={item.link || "https://sites.google.com/view/ajayprajapati/academic-activities"} target="_blank" rel="noopener noreferrer">View source</a>
-            </details>
+            </SlidingDisclosure>
           </article>
         ))}
       </ExpandableList>

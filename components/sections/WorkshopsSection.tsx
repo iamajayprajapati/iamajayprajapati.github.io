@@ -1,3 +1,4 @@
+import SlidingDisclosure from "@/components/SlidingDisclosure";
 import ProfileSection from "@/components/ProfileSection";
 import ExpandableList from "@/components/ExpandableList";
 const workshops = [
@@ -255,11 +256,10 @@ export default function WorkshopsSection() {
           <article className="glass-card academic-entry" key={index}>
             <h3>{item.title}</h3>
             <p className="entry-meta">{item.org + " / " + item.year}</p>
-            <details className="entry-detail">
-              <summary>Read details</summary>
+            <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.description}</p>
               <a href="https://sites.google.com/view/ajayprajapati/workshops" target="_blank" rel="noopener noreferrer">View source</a>
-            </details>
+            </SlidingDisclosure>
           </article>
         ))}
       </ExpandableList>
