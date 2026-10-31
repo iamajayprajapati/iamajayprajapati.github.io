@@ -250,7 +250,7 @@ const workshops = [
 
 export default function WorkshopsSection() {
   return (
-    <ProfileSection id="workshops" title="Workshops & Training" source="https://sites.google.com/view/ajayprajapati/workshops">
+    <ProfileSection id="workshops" title="Workshops & Training">
       <ExpandableList limit={3} label="workshops & training" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: 28 }}>
         {workshops.map((item, index) => (
           <article className="glass-card academic-entry" key={index}>
@@ -258,7 +258,6 @@ export default function WorkshopsSection() {
             <p className="entry-meta">{item.org + " / " + item.year}</p>
             <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.description}</p>
-              <a href="https://sites.google.com/view/ajayprajapati/workshops" target="_blank" rel="noopener noreferrer">View source</a>
             </SlidingDisclosure>
           </article>
         ))}

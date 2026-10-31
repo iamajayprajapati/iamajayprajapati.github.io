@@ -98,7 +98,7 @@ const courses = [
 
 export default function TeachingSection() {
   return (
-    <ProfileSection id="teaching" title="Teaching" source="https://sites.google.com/view/ajayprajapati/academic-activities">
+    <ProfileSection id="teaching" title="Teaching">
       <ExpandableList limit={3} label="teaching" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: 28 }}>
         {courses.map((item, index) => (
           <article className="glass-card academic-entry" key={index}>
@@ -106,7 +106,6 @@ export default function TeachingSection() {
             <p className="entry-meta">{item.code + " / " + item.semester}</p>
             <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.role + " at " + item.institution + ". " + item.description}</p>
-              <a href="https://sites.google.com/view/ajayprajapati/academic-activities" target="_blank" rel="noopener noreferrer">View source</a>
             </SlidingDisclosure>
           </article>
         ))}

@@ -3,7 +3,7 @@ import ProfileSection from "@/components/ProfileSection";
 const education = [["Ph.D. in Computer Science and Engineering", "IIIT Vadodara, International Campus Diu", "Pursuing"], ["M.Sc. in Computer Science", "Banaras Hindu University", "2023"], ["B.Tech. in Computer Science and Engineering", "Dr. A.P.J. Abdul Kalam Technical University", "2021"], ["Intermediate (10+2)", "UP Board", "2017"], ["High School", "UP Board", "2015"]];
 export default function AboutSection() {
   return (
-    <ProfileSection id="about" title="About Me" source="https://sites.google.com/view/ajayprajapati/academic-activities">
+    <ProfileSection id="about" title="Education & Background">
 
       <p style={{ maxWidth: 760, margin: "0 auto 32px", color: "var(--text-secondary)" }}>
         I am Ajay Prajapati, a Ph.D. scholar in Computer Science and Engineering

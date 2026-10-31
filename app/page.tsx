@@ -9,7 +9,6 @@ import SkillsSection from "@/components/sections/SkillsSection";
 import AwardsSection from "@/components/sections/AwardsSection";
 import WorkshopsSection from "@/components/sections/WorkshopsSection";
 import ContactSection from "@/components/sections/ContactSection";
-import StatsSection from "@/components/sections/StatsSection";
 
 /**
  * Home page – renders all sections of the academic portfolio
@@ -21,17 +20,14 @@ export default function Home() {
       {/* Hero / Landing */}
       <HeroSection />
 
-      {/* Research Metrics Dashboard */}
-      <StatsSection />
-
-      {/* Biography + Education */}
-      <AboutSection />
-
       {/* Research Interests */}
       <ResearchSection />
 
       {/* Publications (journal + conference + preprints) */}
       <PublicationsSection />
+
+      {/* Biography + Education */}
+      <AboutSection />
 
       {/* Projects */}
       <ProjectsSection />

@@ -18,5 +18,7 @@ ORCID, and research specializations absent from these sources. Removed the
 placeholder CV download and the contact form that simulated delivery.
 Conference presentations are not represented as verified peer-reviewed papers.
 
-Sections show a short preview. Native disclosure controls reveal remaining
-records and descriptions without making content depend on scroll animations.
+Sections show a short preview. Accessible click-to-slide controls reveal
+remaining records and descriptions without making content depend on scroll
+animations. Source references are retained here; they are not displayed as
+links in portfolio sections.

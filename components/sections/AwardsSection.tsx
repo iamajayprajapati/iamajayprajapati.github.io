@@ -47,7 +47,7 @@ const awards = [
 
 export default function AwardsSection() {
   return (
-    <ProfileSection id="awards" title="Academic Achievements" source="https://sites.google.com/view/ajayprajapati/academic-activities">
+    <ProfileSection id="awards" title="Academic Achievements">
       <ExpandableList limit={2} label="academic achievements" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: 28 }}>
         {awards.map((item, index) => (
           <article className="glass-card academic-entry" key={index}>
@@ -55,7 +55,6 @@ export default function AwardsSection() {
             <p className="entry-meta">{item.org + " / " + item.year}</p>
             <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.description}</p>
-              <a href={item.source} target="_blank" rel="noopener noreferrer">View source</a>
             </SlidingDisclosure>
           </article>
         ))}

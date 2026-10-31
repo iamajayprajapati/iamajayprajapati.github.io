@@ -2,7 +2,7 @@ import ProfileSection from "@/components/ProfileSection";
 
 export default function SkillsSection() {
   return (
-    <ProfileSection id="skills" title="Training Topics" source="https://sites.google.com/view/ajayprajapati/workshops">
+    <ProfileSection id="skills" title="Training Topics">
 
       <p style={{ textAlign: "center", marginBottom: 24 }}>Topics covered by documented training and coursework.</p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>

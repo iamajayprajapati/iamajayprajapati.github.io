@@ -76,7 +76,7 @@ const projects = [
 
 export default function ProjectsSection() {
   return (
-    <ProfileSection id="projects" title="Projects" source="https://sites.google.com/view/ajayprajapati/projects">
+    <ProfileSection id="projects" title="Projects">
       <ExpandableList limit={3} label="projects" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: 28 }}>
         {projects.map((item, index) => (
           <article className="glass-card academic-entry" key={index}>
@@ -84,7 +84,6 @@ export default function ProjectsSection() {
             <p className="entry-meta">{item.subtitle}</p>
             <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.description}</p>
-              <a href="https://sites.google.com/view/ajayprajapati/projects" target="_blank" rel="noopener noreferrer">View source</a>
             </SlidingDisclosure>
           </article>
         ))}

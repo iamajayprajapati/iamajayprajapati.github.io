@@ -395,7 +395,7 @@ export default function PublicationsSection() {
             <span className="gradient-text">Publications</span>
           </h2>
           <p className="section-subtitle">
-            Journal articles, a preprint, and conference contributions and presentations listed on my academic profile.
+            Journal articles, a preprint, conference contributions, and research presentations.
           </p>
         </motion.div>
 

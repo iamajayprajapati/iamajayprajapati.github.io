@@ -94,7 +94,7 @@ const experiences: ExpItem[] = [
 export default function ExperienceSection() {
   const ordered = [experiences[4], experiences[1], experiences[5], experiences[0], experiences[2], experiences[6], experiences[3]];
   return (
-    <ProfileSection id="experience" title="Experience & Academic Service" source="https://sites.google.com/view/ajayprajapati/academic-activities">
+    <ProfileSection id="experience" title="Experience & Academic Service">
       <ExpandableList limit={3} label="experience" style={{ display: "grid", gap: 24 }}>
         {ordered.map((item) => (
           <article key={item.role + item.org} className="glass-card academic-entry">
@@ -104,7 +104,6 @@ export default function ExperienceSection() {
             <SlidingDisclosure className="entry-detail" label="Read details" expandedLabel="Hide details">
               <p>{item.description}</p>
               {item.highlights.map((highlight) => <p key={highlight}>{highlight}</p>)}
-              <a href={item.link || "https://sites.google.com/view/ajayprajapati/academic-activities"} target="_blank" rel="noopener noreferrer">View source</a>
             </SlidingDisclosure>
           </article>
         ))}

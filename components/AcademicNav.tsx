@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 
-const primary = [["About", "about"], ["Publications", "publications"], ["Projects", "projects"], ["Teaching", "teaching"], ["Contact", "contact"]];
-const additional = [["Research interests", "research"], ["Experience", "experience"], ["Workshops & training", "workshops"], ["Training topics", "skills"], ["Achievements", "awards"]];
+const primary = [["Research", "research"], ["Publications", "publications"], ["Education", "about"], ["Teaching", "teaching"], ["Contact", "contact"]];
+const additional = [["Projects", "projects"], ["Experience", "experience"], ["Workshops & training", "workshops"], ["Training topics", "skills"], ["Achievements", "awards"]];
 
 export default function AcademicNav() {
   const [open, setOpen] = useState(false);
@@ -11,7 +11,7 @@ export default function AcademicNav() {
   return (
     <header className="academic-nav">
       <nav className="container nav-inner" aria-label="Main navigation">
-        <a href="#home" className="wordmark" onClick={() => setOpen(false)}>Ajay Prajapati<span>.</span></a>
+        <a href="#home" className="wordmark scholar-wordmark" onClick={() => setOpen(false)}><span className="scholar-name">Ajay Prajapati</span><span className="scholar-role">Ph.D. Scholar · IIIT Vadodara</span></a>
         <div className="nav-main-links">
           {primary.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}
           <details className="nav-more"><summary>More <span aria-hidden="true">⌄</span></summary><div>{additional.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</div></details>
